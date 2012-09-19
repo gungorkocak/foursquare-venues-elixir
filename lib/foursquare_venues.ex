@@ -11,7 +11,33 @@ defmodule FoursquareVenues do
   end
 
   def process_response_body(body) do
-    :jsx.decode to_binary(body)
+
+    primitive_parse = :jsx.decode to_binary(body)
+    parameters = convert_binary_keys_to_atoms_in primitive_parse
+    # :orddict.from_list parameters
+  
+  end
+
+  def convert_binary_keys_to_atoms_in ( list ) do
+
+    Enum.map list, fn( inner_item ) ->
+      case inner_item do
+
+        item when is_list( item ) ->
+          convert_binary_keys_to_atoms_in item
+        
+        { k, v } when is_list( v )  ->
+          convert_binary_keys_to_atoms_in v
+        
+        { k, v } ->
+          { binary_to_atom( k ), v }
+
+        unknown ->
+          unknown
+
+      end
+    end
+    
   end
 
   @doc """
@@ -130,5 +156,29 @@ defmodule FoursquareVenues do
     get( search_uri ).body
 
   end
+
+  def test( "cekmekoy" ) do
+
+    test "41.015268,29.139004" 
+
+  end
+
+  def test( "acibadem" ) do
+
+    test "41.004,29.03"
+
+  end
+
+  def test( ll ) do
+
+    search [
+      ll: ll,
+      client_id: "WIJ5B1CH1LM0XIE3Q1TDTAQCBXTJTBQE25MOAL4BL50SPS4H", 
+      client_secret: "41XBSOAKTLNKEFAD0TCLXME2RUIZGUNFAOOO4TO0QNDZ2HDZ",
+      v: "20120918"
+    ]
+
+  end
+  
 
 end
