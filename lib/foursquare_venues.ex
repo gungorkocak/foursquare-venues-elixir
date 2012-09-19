@@ -13,8 +13,7 @@ defmodule FoursquareVenues do
   def process_response_body(body) do
 
     primitive_parse = :jsx.decode to_binary(body)
-    parameters = convert_binary_keys_to_atoms_in primitive_parse
-    # :orddict.from_list parameters
+    convert_binary_keys_to_atoms_in primitive_parse
   
   end
 
@@ -27,7 +26,7 @@ defmodule FoursquareVenues do
           convert_binary_keys_to_atoms_in item
         
         { k, v } when is_list( v )  ->
-          convert_binary_keys_to_atoms_in v
+          { binary_to_atom( k ), convert_binary_keys_to_atoms_in( v ) }
         
         { k, v } ->
           { binary_to_atom( k ), v }
