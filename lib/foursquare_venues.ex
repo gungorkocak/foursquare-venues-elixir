@@ -156,28 +156,4 @@ defmodule FoursquareVenues do
 
   end
 
-  def test( "cekmekoy" ) do
-
-    test "41.015268,29.139004" 
-
-  end
-
-  def test( "acibadem" ) do
-
-    test "41.004,29.03"
-
-  end
-
-  def test( ll ) do
-
-    search [
-      ll: ll,
-      client_id: "WIJ5B1CH1LM0XIE3Q1TDTAQCBXTJTBQE25MOAL4BL50SPS4H", 
-      client_secret: "41XBSOAKTLNKEFAD0TCLXME2RUIZGUNFAOOO4TO0QNDZ2HDZ",
-      v: "20120918"
-    ]
-
-  end
-  
-
 end
